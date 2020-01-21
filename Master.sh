@@ -5,7 +5,12 @@ pd=`pwd`
 StartDate=`date +"%m%d%Y%H%M%S"`
 #cd ../docker-jmeter
 #./build.sh
-echo `$pd`
+pwd
+echo `ls`
+cd ..
+pwd
+echo `ls`
+cd ~
 echo `ls`
 echo "done"
 
