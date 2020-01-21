@@ -5,6 +5,8 @@ pd=`pwd`
 StartDate=`date +"%m%d%Y%H%M%S"`
 cd ../docker-jmeter
 ./build.sh
+echo `$JMETER_BIN`
+echo "done"
 
 #wget http://apachemirror.wuchna.com//jmeter/binaries/apache-jmeter-5.2.1.zip
 #unzip apache-jmeter-5.2.1.zip
