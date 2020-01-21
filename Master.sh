@@ -10,8 +10,7 @@ echo `ls`
 cd ..
 pwd
 echo `ls`
-cd ~
-echo `ls`
+which java
 echo "done"
 
 #wget http://apachemirror.wuchna.com//jmeter/binaries/apache-jmeter-5.2.1.zip
