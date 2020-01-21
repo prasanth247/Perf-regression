@@ -11,8 +11,8 @@ cd ..
 pwd
 echo `ls`
 which java
+ls /opt
 echo "done"
-
 #wget http://apachemirror.wuchna.com//jmeter/binaries/apache-jmeter-5.2.1.zip
 #unzip apache-jmeter-5.2.1.zip
 #JMETER_HOME=${pd}/apache-jmeter-5.2.1/bin
