@@ -4,7 +4,7 @@
 pd=`pwd`
 StartDate=`date +"%m%d%Y%H%M%S"`
 cd ../docker-jmeter
-./build.sh
+#./build.sh
 echo `$JMETER_BIN`
 echo "done"
 
