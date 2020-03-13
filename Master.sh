@@ -1,5 +1,6 @@
 #!/bin/bash
 # For any queries, please contact reddy.adalam@smarsh.com
+
 pd=`pwd`
 StartDate=`date +"%m%d%Y%H%M%S"`
 
@@ -10,10 +11,13 @@ cd jmeterscripts
 jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t Disablealljobs.jmx -l Disablealljobs_$StartDate.jtl
 echo "disabled all jobs"
 
-echo "`cat Disablealljobs_$StartDate.jtl`"
 #---Get the count of messages before the test
-#rm getdata1.txt
-awk -F , '{ print $4,$7,$8}' OFS=, jobdetails.txt | sed 's/\r//g' >getdata1.txt
-awk -F, '{print $3,$2,$1}' OFS=, getdata1.txt > checkcount.txt
+rm getdata1.txt
+#awk -F , '{ print $4,$7,$8}' OFS=, jobdetails.txt | sed 's/\r//g' >getdata1.txt
+#awk -F, '{print $3,$2,$1}' OFS=, getdata1.txt > checkcount.txt
 cat attfeeds.txt >>checkcount.txt
-cat checkcount.txt
+rm currcount.txt
+
+jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t CheckCount.jmx -l CheckCount_$StartDate.jtl
+
+echo "`cat currcount.txt`"
