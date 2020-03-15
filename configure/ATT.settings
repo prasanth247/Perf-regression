@@ -1,0 +1,4 @@
+#Define number of threads, loopcount
+ATTFeeds=1
+totalATTBatches=2
+attbatchsize=1000
