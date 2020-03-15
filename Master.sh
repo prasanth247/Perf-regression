@@ -21,6 +21,6 @@ rm currcount.txt
 jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t CheckCount.jmx -l CheckCount_$StartDate.jtl
 
 echo "`cat currcount.txt`"
-. configure/ATT.settings
+. ../configure/ATT.settings
 echo $ATTFeeds
 
