@@ -16,7 +16,11 @@ rm getdata1.txt
 #awk -F , '{ print $4,$7,$8}' OFS=, jobdetails.txt | sed 's/\r//g' >getdata1.txt
 #awk -F, '{print $3,$2,$1}' OFS=, getdata1.txt > checkcount.txt
 cat attfeeds.txt >>checkcount.txt
-echo "`cat checkcount.txt`"
+rm intialcount.txt
+
+#modify the count based on the number of feeds
+test=`cat checkcount.txt | wc -l`
+sed -i "s/2</$test</g" CheckCount.jmx
 
 jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t CheckCount.jmx -l CheckCount_$StartDate.jtl
 
@@ -26,4 +30,5 @@ jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyS
 #. ../configure/ATT.settings
 #echo $ATTFeeds
 
-echo "`cat intialcount.txt`"
+cat intialcount.txt
+sed -i "s/$test</2</g" CheckCount.jmx
