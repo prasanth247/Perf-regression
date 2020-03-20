@@ -16,11 +16,15 @@ rm getdata1.txt
 #awk -F , '{ print $4,$7,$8}' OFS=, jobdetails.txt | sed 's/\r//g' >getdata1.txt
 #awk -F, '{print $3,$2,$1}' OFS=, getdata1.txt > checkcount.txt
 cat attfeeds.txt >>checkcount.txt
-rm currcount.txt
+rm intialcount.txt
 
-jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t CheckCount.jmx -l CheckCount_$StartDate.jtl
+jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t CheckCount.jmx -l CheckCount_$StartDate.jtl > checkcount.txt
 
-echo "`cat currcount.txt`"
-. ../configure/ATT.settings
-echo $ATTFeeds
+cat checkcount.txt
 
+#make test executions dynamic configurations can be used
+#echo "`cat currcount.txt`"
+#. ../configure/ATT.settings
+#echo $ATTFeeds
+
+cat intialcount.txt
