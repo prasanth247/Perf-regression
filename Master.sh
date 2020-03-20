@@ -27,3 +27,4 @@ jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyS
 #echo $ATTFeeds
 
 cat intialcount.txt
+echo "`cat intialcount.txt`"
