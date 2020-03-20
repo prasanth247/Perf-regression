@@ -118,7 +118,7 @@ import java.util.List;
 
 String extfeedid=vars.get(&quot;extfeed&quot;);
 String Count=vars.get(&quot;count&quot;);
-File file = new File(&quot;currcount.txt&quot;);
+File file = new File(&quot;intialcount.txt&quot;);
 FileWriter fstream = new FileWriter(file, true);
 BufferedWriter out = new BufferedWriter(fstream);
 out.write(extfeedid + &quot;,&quot;+ Count+&quot;\n&quot;);
