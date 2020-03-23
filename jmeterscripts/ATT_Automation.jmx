@@ -12,7 +12,7 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Partner API Flow" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Partner API Flow" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -98,7 +98,7 @@ vars.put(&quot;file1&quot;,filename);
           </ConstantTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Submit Batch to partner API" enabled="false">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Submit Batch to partner API" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
           <boolProp name="TransactionController.parent">false</boolProp>
         </TransactionController>
@@ -198,7 +198,6 @@ import java.io.*;
 import java.util.*;
 
 String fname=vars.get(&quot;file1&quot;);
-log.info(&quot;ATT batch submitted;&quot;+vars.get(&quot;feedid&quot;));
 File file1 = new File(fname);
 if (file1.exists()) {
 file1.delete(); 
@@ -284,61 +283,6 @@ file1.delete();
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
-          <stringProp name="BeanShellSampler.query">import java.text.*;
-import java.io.*;
-import java.util.*;
-
-
-ArrayList channel_list = new ArrayList();
-ArrayList users_list = new ArrayList();
-String channel=null;String line=null;
-BufferedReader bufRdr = new BufferedReader(new FileReader(&quot;users.txt&quot;));
-while((line = bufRdr.readLine()) != null) {
-        users_list.add(line);
-         }
-bufRdr.close();
-BufferedReader bufRdr1 = new BufferedReader(new FileReader(&quot;channels.txt&quot;));
-while((channel = bufRdr1.readLine()) != null) {
-        channel_list.add(channel);
-         }
-  bufRdr1.close();
-int n=0;
-int userperchannel=5;
-ArrayList finaluserlist = new ArrayList();
-finaluserlist.addAll(users_list);
-while ( (finaluserlist.size())&lt;(userperchannel*channel_list.size()))
-{
-finaluserlist.addAll(users_list);	
-}
-
-for (int i = 0; i &lt; channel_list.size(); i++) {
-	for (int j = n; j &lt; n+userperchannel; j++) {
-  log.info(i+&quot;,&quot;+channel_list.get(i)+&quot;,&quot;+finaluserlist.get(j));
-
-  }
-n=n+userperchannel;
-} 
-</stringProp>
-          <stringProp name="BeanShellSampler.filename"></stringProp>
-          <stringProp name="BeanShellSampler.parameters"></stringProp>
-          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
-        </BeanShellSampler>
-        <hashTree/>
-      </hashTree>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>
