@@ -39,7 +39,7 @@ attbatches=`cat ATT_Automation.jmx | grep "LoopController.loops\">" | cut -d ">"
 echo "attbatches $attbatches"
 att=`cat attfeeds.txt | wc -l`
 echo "attfeeds $att"
-batchcount=`echo $((attbatches*1000 / att))`
+batchcount=`echo $(($attbatches*1000 / $att))`
 echo "batch count $batchcount"
 awk -v num="$batchcount" -F, '{$2=$2+num;print}'  OFS=, intialcount.txt | sed 's/\r//g' > finalcount.txt
 paste -d, finalcount.txt attfeeds.txt | awk -F, '{print $1,$2,$4,$5}' OFS=, > finalcount1.txt
