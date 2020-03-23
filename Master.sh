@@ -8,7 +8,7 @@ StartDate=`date +"%m%d%Y%H%M%S"`
 echo "copied required files for creating batches"
 cd jmeterscripts
 #---Disable all active jobs---
-jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t Disablealljobs.jmx -l Disablealljobs_$StartDate.jtl
+#jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t Disablealljobs.jmx -l Disablealljobs_$StartDate.jtl
 echo "disabled all jobs"
 
 #---Get the count of messages before the test
@@ -39,7 +39,7 @@ attbatches=`cat ATT_Automation.jmx | grep "LoopController.loops\">" | cut -d ">"
 echo "attbatches $attbatches"
 att=`cat attfeeds.txt | wc -l`
 echo "attfeeds $att"
-batchcount=`echo $(($attbatches*1000/$att))`
+batchcount=`echo ($attbatches*1000/$att)`
 echo "batch count $batchcount"
 awk -v num="$batchcount" -F, '{$2=$2+num;print}'  OFS=, intialcount.txt | sed 's/\r//g' > finalcount.txt
 paste -d, finalcount.txt attfeeds.txt | awk -F, '{print $1,$2,$4,$5}' OFS=, > finalcount1.txt
