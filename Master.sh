@@ -22,7 +22,7 @@ rm intialcount.txt
 test=`cat checkcount.txt | wc -l`
 sed -i "s/2</$test</g" CheckCount.jmx
 
-jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t CheckCount.jmx -l CheckCount_$StartDate.jtl
+jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t CheckCount.jmx -l CheckCount_$StartDate.jtl  
 
 
 #make test executions dynamic configurations can be used
@@ -31,4 +31,19 @@ jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyS
 #echo $ATTFeeds
 
 cat intialcount.txt
+
+echo "sending ATT batches"
+#----Dynamically calculating the expected count based on loop count----#
+
+attbatches=`cat ATT_Automation.jmx | grep "LoopController.loops\">" | cut -d ">" -f2 | cut -d "<" -f1`
+
+att=`cat attfeeds.txt | wc -l`
+batchcount=`echo $((attbatches*1000 / att))`
+awk -v num="$batchcount" -F, '{$2=$2+num;print}'  OFS=, intialcount.txt | sed 's/\r//g' > finalcount.txt
+paste -d, finalcount.txt attfeeds.txt | awk -F, '{print $1,$2,$4,$5}' OFS=, > finalcount1.txt
+echo "`cat finalcount1.txt`"
+
+
 sed -i "s/$test</2</g" CheckCount.jmx
+
+
