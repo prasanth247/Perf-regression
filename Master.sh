@@ -8,7 +8,7 @@ StartDate=`date +"%m%d%Y%H%M%S"`
 echo "copied required files for creating batches"
 cd jmeterscripts
 #---Disable all active jobs---
-#jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t Disablealljobs.jmx -l Disablealljobs_$StartDate.jtl
+jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t Disablealljobs.jmx -l Disablealljobs_$StartDate.jtl
 echo "disabled all jobs"
 
 #---Get the count of messages before the test
@@ -21,7 +21,7 @@ rm intialcount.txt
 #modify the count based on the number of feeds
 test=`cat checkcount.txt | wc -l`
 sed -i "s/2</$test</g" CheckCount.jmx
-
+sed -i "s/2</$test</g" Responsetimes.jmx
 jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t CheckCount.jmx -l CheckCount_$StartDate.jtl  
 
 
@@ -36,16 +36,22 @@ echo "sending ATT batches"
 #----Dynamically calculating the expected count based on loop count----#
 
 attbatches=`cat ATT_Automation.jmx | grep "LoopController.loops\">" | cut -d ">" -f2 | cut -d "<" -f1`
-echo "att batches $attbatches"
+
 att=`cat attfeeds.txt | wc -l`
-echo $att
-batchcount=`echo $(($attbatches*1000 / $att))`
-echo $batchcount
+batchcount=`echo $((attbatches*1000 / att))`
 awk -v num="$batchcount" -F, '{$2=$2+num;print}'  OFS=, intialcount.txt | sed 's/\r//g' > finalcount.txt
 paste -d, finalcount.txt attfeeds.txt | awk -F, '{print $1,$2,$4,$5}' OFS=, > finalcount1.txt
-cat finalcount1.txt
+echo "`cat finalcount1.txt`"
 
+jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t ATT_Automation.jmx -l ATTbatches_$StartDate.jtl
+echo "`cat ATTbatches_$StartDate.jtl | grep "prtn-staging.cc.gov.smarsh.cloud" | head -1 | cut -d "," -f1`
+echo "`cat ATTbatches_$StartDate.jtl | grep "prtn-staging.cc.gov.smarsh.cloud"`"
+sleep 600
+
+jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t Responsetimes.jmx -l responsetimes_$StartDate.jtl
+
+echo "`cat responsetime.txt`"
 
 sed -i "s/$test</2</g" CheckCount.jmx
-
+sed -i "s/$test</2</g" Responsetimes.jmx
 
