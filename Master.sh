@@ -45,7 +45,7 @@ echo "`cat finalcount1.txt`"
 
 jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t ATT_Automation.jmx -l ATTbatches_$StartDate.jtl
 
-sleep 600
+sleep 60
 echo "collecting count and response times"
 
 jmeter -n -D javax.net.ssl.keyStore=cc-stage-superuser.p12 -D javax.net.ssl.keyStorePassword=superuser -D javax.net.ssl.keyStoreType=pkcs12 -t Responsetimes.jmx -l responsetimes_$StartDate.jtl
