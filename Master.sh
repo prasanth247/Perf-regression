@@ -4,7 +4,7 @@
 pd=`pwd`
 StartDate=`date +"%m%d%Y%H%M%S"`
 
-#cp jmeterscripts/*.jar jmeterscripts/randomwords.txt /opt/apache-jmeter-5.1.1/lib
+cp jmeterscripts/*.jar jmeterscripts/randomwords.txt /opt/apache-jmeter-5.1.1/lib
 echo "copied required files for creating batches"
 cd jmeterscripts
 #---Disable all active jobs---
