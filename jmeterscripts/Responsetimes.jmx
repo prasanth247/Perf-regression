@@ -199,7 +199,7 @@ vars.put(&quot;ecount&quot;,String.valueOf(bc));
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="false">
+            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
               <stringProp name="ConstantTimer.delay">300000</stringProp>
             </ConstantTimer>
             <hashTree/>
@@ -288,7 +288,7 @@ import java.time.OffsetDateTime;
 import java.util.*;
 
 String extfeedid=vars.get(&quot;extfeed&quot;);
-String Count=vars.get(&quot;count&quot;);
+String Count=vars.get(&quot;pcount&quot;);
 String archdate=vars.get(&quot;archdate&quot;);
 DateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd&apos;T&apos;HH:mm:ss&quot;,Locale.ENGLISH);
 format.setTimeZone(TimeZone.getTimeZone(&quot;UTC&quot;));
