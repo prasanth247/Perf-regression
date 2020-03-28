@@ -73,7 +73,7 @@ else
 status="fail"
 fi
 echo $status
-curl -X POST -H 'Content-type: application/json' --data '{ "text": "Performance test results summary", "blocks": [{ "type": "section", "text": { "type": "mrkdwn", "text":"Performance test results summary:'$status' \n Average throughput:'$throughput' msgs/sec \n Total messages ingested:'$totalmessages' msgs \n Test Duration: '$testduration' seconds"}}]}'  https://hooks.slack.com/services/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
+curl -X POST -H 'Content-type: application/json' --data '{ "text": "Performance test results summary", "blocks": [{ "type": "section", "text": { "type": "mrkdwn", "text":"Performance test results summary:'$status' \n Average throughput:'$throughput' msgs/sec \n Total messages ingested:'$totalmessages' msgs \n Test Duration: '$testduration' seconds"}}]}'  https://hooks.slack.com/services/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
 
 echo "Slack alert sent"
 
