@@ -8,6 +8,6 @@ echo "Running test on dev"
 else if [[ $space == *"cc-test"* ]]
 then
 echo "Running test on test"
-else if [[ $space == *"cc-staging"* ]]
+else 
 echo "running test on staging"
 fi
